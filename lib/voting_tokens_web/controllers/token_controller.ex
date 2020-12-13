@@ -2,7 +2,7 @@ defmodule VotingTokensWeb.TokenController do
   use VotingTokensWeb, :controller
 
   alias VotingTokens.Accounts
-  alias VotingTokens.Accounts.Token
+  alias VotingTokens.Accounts.{User,Token}
 
   def index(conn, _params) do
     tokens = Accounts.list_tokens()
@@ -59,4 +59,22 @@ defmodule VotingTokensWeb.TokenController do
     |> put_flash(:info, "Token deleted successfully.")
     |> redirect(to: Routes.token_path(conn, :index))
   end
+
+  def register(conn, _params) do
+    changeset = Accounts.change_token(%Token{})
+    render(conn, "register.html", changeset: changeset)
+  end
+
+  def claim(conn, %{"form" => %{"email" => email}}) do
+    case Accounts.lookup_user(email) do
+      nil ->
+        render(conn, "claim.html", error: "not_found")
+      %User{is_used: true} ->
+        render(conn, "claim.html", error: "already_used")
+      user ->
+        Accounts.update_user(user, %{is_used: true})
+        render(conn, "claim.html", user: user)
+    end
+  end
+
 end

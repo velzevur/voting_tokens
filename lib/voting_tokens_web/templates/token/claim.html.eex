@@ -1,0 +1,10 @@
+<%= if assigns[:error] do %>
+  <%= if @error == "not_found" do %>
+    Използваният имейл няма право на глас.
+  <% end %>
+  <%= if @error == "already_used" do %>
+    Използваният имейл вече е регистриран.
+  <% end %>
+<% else %>
+  ok
+<% end %>

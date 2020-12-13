@@ -102,6 +102,10 @@ defmodule VotingTokens.Accounts do
     User.changeset(user, attrs)
   end
 
+  def lookup_user(email) do
+    Repo.get_by(User, email: email)
+  end
+
   alias VotingTokens.Accounts.Token
 
   @doc """

@@ -18,6 +18,8 @@ defmodule VotingTokensWeb.Router do
 
     get "/", PageController, :index
     get "/users/", UserController, :index
+    get "/register", TokenController, :register
+    post "/claim", TokenController, :claim
   end
 
   # Other scopes may use custom stacks.

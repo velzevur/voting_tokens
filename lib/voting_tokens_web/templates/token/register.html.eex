@@ -1,0 +1,7 @@
+<h1>Регистрация</h1>
+
+За да се регистрираш, въведи своя имейл.
+<%= form_for :form, Routes.token_path(@conn, :claim), fn f -> %>
+  <%= text_input f, :email, value: "" %>
+  <%= submit "Регистрирай ме" %>
+<% end %>

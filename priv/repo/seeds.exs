@@ -15,7 +15,7 @@ alias VotingTokens.Accounts.{Token,User}
 alias VotingTokens.Repo
 
 Enum.each(
-  [ "john@doe.com" , "jane@doe.com" ],
+  [ "joe@doe.com" , "jane@doe.com" ],
   fn e -> %User{email: e} |> Repo.insert! end)
 
 european_countries =
