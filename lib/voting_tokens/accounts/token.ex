@@ -3,7 +3,7 @@ defmodule VotingTokens.Accounts.Token do
   import Ecto.Changeset
 
   schema "tokens" do
-    field :group, :integer
+    field :group_id, :integer
     field :is_used, :boolean, default: false
     field :keyword, :string
 
@@ -13,7 +13,7 @@ defmodule VotingTokens.Accounts.Token do
   @doc false
   def changeset(token, attrs) do
     token
-    |> cast(attrs, [:keyword, :is_used, :group])
-    |> validate_required([:keyword, :is_used, :group])
+    |> cast(attrs, [:keyword, :is_used, :group_id])
+    |> validate_required([:keyword, :is_used, :group_id])
   end
 end

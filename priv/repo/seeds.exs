@@ -11,16 +11,34 @@
 # and so on) as they will fail if something goes wrong.
 
 
-alias VotingTokens.Accounts.{Token,User}
+alias VotingTokens.Accounts.{Token,User,TokenGroup}
 alias VotingTokens.Repo
 
 Enum.each(
   [ "joe@doe.com" , "jane@doe.com" ],
   fn e -> %User{email: e} |> Repo.insert! end)
 
-european_countries =
-  [ "Франция",
-    "Германия" ]
 
-Enum.each(european_countries,
-  fn k -> %Token{keyword: k, group: 1} |> Repo.insert! end)
+
+[{"Държави в Европа",
+    [ "Франция",
+      "Германия" ], false},
+  {"Гръцки богове",
+    ["Зевс",
+     "Аполон",
+     "Хермес",
+     "Афродита",
+     "Диана"], true},
+  {"Реки",
+    ["Нил",
+     "Амазонка",
+     "Дунав",
+     "Искър",
+     "Велека"], true}
+]
+|> Enum.each(
+  fn {group_name, keys, is_available} ->
+    group = Repo.insert!(%TokenGroup{name: group_name, is_available: is_available})
+    Enum.each(keys,
+      fn k -> %Token{keyword: k, group_id: group.id} |> Repo.insert! end)
+  end)

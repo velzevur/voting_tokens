@@ -72,9 +72,19 @@ defmodule VotingTokensWeb.TokenController do
       %User{is_used: true} ->
         render(conn, "claim.html", error: "already_used")
       user ->
-        Accounts.update_user(user, %{is_used: true})
-        render(conn, "claim.html", user: user)
+        case Accounts.available_tokens() do
+          {:ok, {token1, token2}} ->
+            Accounts.update_user(user, %{is_used: true})
+            render(conn, "claim.html", tokens: [token1, token2])
+          {:error, err} ->
+            render(conn, "claim.html", error: err)
+        end
     end
+  end
+
+  def claimed(conn, _) do
+    {:ok, {used1, used2}} = Accounts.used_tokens()
+    render(conn, "claimed.html", used: [used1, used2])
   end
 
 end

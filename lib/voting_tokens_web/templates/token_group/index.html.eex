@@ -1,0 +1,34 @@
+<h1>Групи с ключове</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Име</th>
+      <th>Токени</th>
+      <th>Активен</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for token_group <- @token_groups do %>
+    <% all = Enum.count(token_group.tokens) %>
+    <% used = Enum.filter(token_group.tokens, fn t -> t.is_used end) |> Enum.count() %>
+    <tr>
+      <td><%= token_group.name %></td>
+      <td><%= used %>/<%= all %></td>
+      <td><%= token_group.is_available %></td>
+
+      <td>
+        <%= if token_group.is_available do %>
+        <span><%= link "Деактивирай", to: Routes.token_group_path(@conn, :toggle, id: token_group.id), method: :post %></span>
+        <% else %>
+        <span><%= link "Активирай", to: Routes.token_group_path(@conn, :toggle, id: token_group.id), method: :post %></span>
+        <% end %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "Нова група", to: Routes.token_group_path(@conn, :new) %></span>

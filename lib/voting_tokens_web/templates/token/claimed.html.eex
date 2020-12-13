@@ -1,0 +1,10 @@
+<h2>Регистрирани токени</h2>
+
+<%= for {%{name: name, used: tokens}, index} <- Enum.with_index(@used, 1) do %>
+  <h3>Гласуване <%= index%> (<%= name %>)</h3>
+  <%= for token <- tokens do %>
+    <span><%= token.keyword %></span>
+  <% end %>
+  <p>Филтър за гугъл форма:</p>
+  <p><%= Enum.join(Enum.map(tokens, fn t -> t.keyword end), "|") %></p>
+<% end %>

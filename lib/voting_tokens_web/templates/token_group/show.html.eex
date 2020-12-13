@@ -1,0 +1,18 @@
+<h1>Show Token group</h1>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @token_group.name %>
+  </li>
+
+  <li>
+    <strong>Is available:</strong>
+    <%= @token_group.is_available %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.token_group_path(@conn, :edit, @token_group) %></span>
+<span><%= link "Back", to: Routes.token_group_path(@conn, :index) %></span>
