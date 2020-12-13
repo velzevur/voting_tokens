@@ -1,0 +1,23 @@
+<h1>Show Token</h1>
+
+<ul>
+
+  <li>
+    <strong>Keyword:</strong>
+    <%= @token.keyword %>
+  </li>
+
+  <li>
+    <strong>Is used:</strong>
+    <%= @token.is_used %>
+  </li>
+
+  <li>
+    <strong>Group:</strong>
+    <%= @token.group %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.token_path(@conn, :edit, @token) %></span>
+<span><%= link "Back", to: Routes.token_path(@conn, :index) %></span>
